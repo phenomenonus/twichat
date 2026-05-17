@@ -1,0 +1,231 @@
+:root {
+  --space-outer: 0.5rem;
+  --xmsg-pad: 0.5rem;
+  --msg-width: 18.125rem;
+  --shift-size: 5rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+h4 {
+  margin-block: 0.5rem;
+}
+
+svg {
+  vertical-align: middle;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: transparent;
+  font-family: sans-serif;
+  font-size: 0.875rem;
+  height: 100dvh;
+  color: #fff;
+}
+
+.chat {
+  overflow: hidden;
+  max-width: calc(var(--msg-width) + var(--xmsg-pad) * 2);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.175rem;
+}
+
+.chat:hover {
+  overflow-y: auto;
+}
+
+.chat.shake {
+  padding: 0rem var(--space-outer);
+  max-width: calc(var(--space-outer) * 2 + var(--msg-width) + var(--xmsg-pad) * 2);
+}
+
+.chat.movetl,
+.chat.movetr {
+  max-width: calc(var(--shift-size) + var(--msg-width) + var(--xmsg-pad) * 2);
+}
+
+.chat.glass {
+  padding: var(--space-outer);
+  max-width: calc(var(--space-outer) * 2 + var(--msg-width) + var(--xmsg-pad) * 2);
+  border-radius: 0.25rem;
+  background-color: rgba(100, 100, 100, 0.15);
+}
+
+.chat.movetl.glass,
+.chat.movetr.glass {
+  max-width: calc(var(--space-outer) * 2 + var(--shift-size) + var(--msg-width) + var(--xmsg-pad) * 2);
+}
+
+.chat.placeholder {
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 32px, #000 32px, #000 64px);
+  background-color: rgba(125, 125, 125, 0.5);
+}
+
+.card {
+  margin: auto;
+  text-align: center;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  width: fit-content;
+  background-color: rgba(100, 100, 100, 0.5);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.error {
+  text-align: left;
+  background-color: rgb(206, 50, 81);
+  color: #000;
+}
+
+.msg {
+  flex-shrink: 0;
+  overflow: hidden;
+  max-width: calc(var(--msg-width) + var(--xmsg-pad) * 2);
+  width: max-content;
+  padding: 0.1875rem var(--xmsg-pad);
+  border-radius: 0rem 0.25rem 0.25rem 0.25rem;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.msg.highlighted {
+  background-color: rgb(51 167 219);
+}
+
+.msg.shake {
+  animation: shake 0.6s ease 0s 1;
+}
+
+.msg.fadein {
+  animation: fadein 2s ease;
+}
+
+.msg.movetl {
+  animation: movetl 1s ease;
+}
+
+.msg.movetr {
+  animation: movetr 1s ease;
+  transform: translateX(var(--shift-size));
+}
+
+.reply {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-bottom: 0.125rem;
+  font-size: 0.8125rem;
+  color: #eee;
+}
+
+.meta {
+  display: inline-block;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-right: 0.1875rem;
+  padding: 0rem 0.125rem 0.125rem;
+  border-radius: 0.1875rem;
+  max-width: var(--msg-width);
+  background-color: rgb(23, 23, 23);
+}
+
+.author {
+  margin-left: 0.125rem;
+  width: 100%;
+  font-weight: 700;
+}
+
+.time {
+  font-size: 0.75rem;
+  color: gray;
+}
+
+.spec {
+  font-size: 0.75rem;
+  margin-left: 0.125rem;
+  color: yellow;
+}
+
+.emote {
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.text {
+  padding-top: 0.4375rem;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  text-shadow: 0rem 0rem 0.125rem rgba(0, 0, 0, 0.75);
+  max-width: var(--msg-width);
+  line-height: 1.2rem;
+}
+
+@keyframes movetl {
+  from {
+    opacity: 0;
+    transform: translateX(var(--shift-size));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0rem);
+  }
+}
+
+@keyframes movetr {
+  from {
+    opacity: 0;
+    transform: translateX(0rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(var(--shift-size));
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(calc(var(--space-outer) / -2));
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(calc(var(--space-outer) / 2));
+  }
+}
