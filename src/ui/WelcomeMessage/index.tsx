@@ -10,8 +10,7 @@ type WelcomeMessagePropsType = {
 export const WelcomeMessage: React.FC<WelcomeMessagePropsType> = ({ channel }) => {
   return (
     <div className="card">
-      <h4>Welcome to the {channel}</h4>
-      <p>There are no messages yet</p>
+      Welcome to the <b>{channel}</b>
     </div>
   );
 };

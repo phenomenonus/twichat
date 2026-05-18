@@ -87,8 +87,6 @@ body {
 
 .error {
   text-align: left;
-  background-color: rgb(206, 50, 81);
-  color: #000;
 }
 
 .msg {
@@ -174,7 +172,6 @@ body {
   padding-top: 0.4375rem;
   overflow: hidden;
   overflow-wrap: anywhere;
-  text-shadow: 0rem 0rem 0.125rem rgba(0, 0, 0, 0.75);
   max-width: var(--msg-width);
   line-height: 1.2rem;
 }

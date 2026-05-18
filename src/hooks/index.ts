@@ -1,3 +1,3 @@
 export * from "./useAutoScroll";
-export * from "./useChatConnectionAwait";
+export * from "./useChatConnection";
 export * from "./useMessages";
