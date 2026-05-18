@@ -27,7 +27,6 @@
   "author": "Mikhail Prugov <mikhail.prugov@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@twurple/auth": "^8.1.4",
     "@twurple/chat": "^8.1.4",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
