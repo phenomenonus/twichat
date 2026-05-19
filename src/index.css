@@ -1,8 +1,39 @@
 :root {
+  /* Theme: dark (default) */
+  --dark-bg: rgb(36, 36, 36);
+  --dark-color: rgb(236, 236, 236);
+  --dark-trans-bg: rgba(0, 0, 0, 0.45);
+  --dark-trans-color: rgb(242, 242, 242);
+  /* Theme: light */
+  --light-bg: rgb(224, 224, 224);
+  --light-color: rgb(28, 28, 28);
+  --light-trans-bg: rgba(255, 255, 255, 0.45);
+  --light-trans-color: rgb(24, 24, 24);
+  /* Theme: neutral */
+  --neutral-bg: rgba(125, 125, 125);
+  --neutral-color: rgb(28, 28, 28);
+  --neutral-trans-bg: rgba(125, 125, 125, 0.45);
+  --neutral-trans-color: rgb(14, 14, 14);
+
+  /* Default colors */
+  --bg: var(--dark-bg);
+  --color: var(--dark-color);
+  --trans-bg: var(--dark-trans-bg);
+  --trans-color: var(--dark-trans-color);
+
+  /* Additional */
   --space-outer: 0.5rem;
   --xmsg-pad: 0.5rem;
   --msg-width: 18.125rem;
   --shift-size: 5rem;
+  --shift-pad: 0rem;
+  --chat-pad: 0rem;
+  --chat-br: 0rem;
+  --chat-bg: transparent;
+  --chat-color: var(--color);
+  --msg-bg: transparent;
+  --msg-animation: none;
+  --msg-transform: none;
 }
 
 *,
@@ -13,6 +44,72 @@
 
 html {
   font-size: 16px;
+}
+
+html[data-theme="dark"] {
+  --bg: var(--dark-bg);
+  --color: var(--dark-color);
+  --trans-bg: var(--dark-trans-bg);
+  --trans-color: var(--dark-trans-color);
+}
+
+html[data-theme="light"] {
+  --bg: var(--light-bg);
+  --color: var(--light-color);
+  --trans-bg: var(--light-trans-bg);
+  --trans-color: var(--light-trans-color);
+}
+
+html[data-theme="neutral"] {
+  --bg: var(--neutral-bg);
+  --color: var(--neutral-color);
+  --trans-bg: var(--neutral-trans-bg);
+  --trans-color: var(--neutral-trans-color);
+}
+
+html[data-chat-bg="glass"] {
+  --chat-pad: var(--space-outer);
+  --chat-br: 0.25rem;
+  --chat-bg: var(--trans-bg);
+  --chat-color: var(--trans-color);
+}
+
+html[data-chat-bg="solid"] {
+  --chat-pad: var(--space-outer);
+  --chat-br: 0.25rem;
+  --chat-bg: var(--bg);
+  --chat-color: var(--color);
+}
+
+html[data-msg-bg="glass"] {
+  --msg-bg: var(--trans-bg);
+}
+
+html[data-msg-bg="solid"] {
+  --msg-bg: var(--bg);
+}
+
+html[data-animation="fadein"] {
+  --msg-animation: fadein 2s ease;
+}
+
+html[data-animation="movetl"] {
+  --shift-pad: var(--shift-size);
+  --msg-animation: movetl 1s ease;
+}
+
+html[data-animation="movetr"] {
+  --shift-pad: var(--shift-size);
+  --msg-animation: movetr 1s ease;
+  --msg-transform: translateX(var(--shift-size));
+}
+
+html[data-animation="shake"] {
+  --msg-animation: shake 0.6s ease 0s 1;
+}
+
+html[data-placeholder="true"] {
+  --chat-bg: repeating-linear-gradient(45deg, transparent 0 32px, #000 32px 64px), var(--trans-bg);
 }
 
 h4 {
@@ -26,18 +123,21 @@ svg {
 body {
   margin: 0;
   overflow: hidden;
-  background-color: transparent;
-  font-family: sans-serif;
-  font-size: 0.875rem;
+  height: 100vh;
   height: 100dvh;
-  color: #fff;
 }
 
 .chat {
   overflow: hidden;
-  max-width: calc(var(--msg-width) + var(--xmsg-pad) * 2);
+  font-family: sans-serif;
+  font-size: 0.875rem;
+  color: var(--chat-color);
+  background: var(--chat-bg);
+  padding: var(--chat-pad);
+  max-width: calc(var(--shift-pad) + var(--chat-pad) * 2 + var(--msg-width) + var(--xmsg-pad) * 2);
   width: 100%;
   height: 100%;
+  border-radius: var(--chat-br);
   display: flex;
   flex-direction: column;
   gap: 0.175rem;
@@ -47,40 +147,13 @@ body {
   overflow-y: auto;
 }
 
-.chat.shake {
-  padding: 0rem var(--space-outer);
-  max-width: calc(var(--space-outer) * 2 + var(--msg-width) + var(--xmsg-pad) * 2);
-}
-
-.chat.movetl,
-.chat.movetr {
-  max-width: calc(var(--shift-size) + var(--msg-width) + var(--xmsg-pad) * 2);
-}
-
-.chat.glass {
-  padding: var(--space-outer);
-  max-width: calc(var(--space-outer) * 2 + var(--msg-width) + var(--xmsg-pad) * 2);
-  border-radius: 0.25rem;
-  background-color: rgba(100, 100, 100, 0.15);
-}
-
-.chat.movetl.glass,
-.chat.movetr.glass {
-  max-width: calc(var(--space-outer) * 2 + var(--shift-size) + var(--msg-width) + var(--xmsg-pad) * 2);
-}
-
-.chat.placeholder {
-  background-image: repeating-linear-gradient(45deg, transparent, transparent 32px, #000 32px, #000 64px);
-  background-color: rgba(125, 125, 125, 0.5);
-}
-
 .card {
   margin: auto;
   text-align: center;
   overflow: hidden;
   overflow-wrap: anywhere;
   width: fit-content;
-  background-color: rgba(100, 100, 100, 0.5);
+  background-color: var(--msg-bg);
   padding: 0.125rem 0.25rem;
   border-radius: 0.25rem;
 }
@@ -96,28 +169,13 @@ body {
   width: max-content;
   padding: 0.1875rem var(--xmsg-pad);
   border-radius: 0rem 0.25rem 0.25rem 0.25rem;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--msg-bg);
+  animation: var(--msg-animation);
+  transform: var(--msg-transform);
 }
 
 .msg.highlighted {
-  background-color: rgb(51 167 219);
-}
-
-.msg.shake {
-  animation: shake 0.6s ease 0s 1;
-}
-
-.msg.fadein {
-  animation: fadein 2s ease;
-}
-
-.msg.movetl {
-  animation: movetl 1s ease;
-}
-
-.msg.movetr {
-  animation: movetr 1s ease;
-  transform: translateX(var(--shift-size));
+  background-color: rgb(49, 176, 155);
 }
 
 .reply {
@@ -126,7 +184,6 @@ body {
   overflow: hidden;
   margin-bottom: 0.125rem;
   font-size: 0.8125rem;
-  color: #eee;
 }
 
 .meta {
@@ -139,7 +196,7 @@ body {
   padding: 0rem 0.125rem 0.125rem;
   border-radius: 0.1875rem;
   max-width: var(--msg-width);
-  background-color: rgb(23, 23, 23);
+  background-color: var(--bg);
 }
 
 .author {
@@ -150,13 +207,13 @@ body {
 
 .time {
   font-size: 0.75rem;
-  color: gray;
+  opacity: 0.675;
 }
 
 .spec {
   font-size: 0.75rem;
   margin-left: 0.125rem;
-  color: yellow;
+  color: rgb(183, 183, 70);
 }
 
 .emote {

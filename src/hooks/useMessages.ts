@@ -15,7 +15,6 @@ export const useMessages = (chatClient: ChatClient, initialConfig: InitialConfig
     // Listener for incoming messages
     const listener = chatClient.onMessage((_, user, text, message) => {
       const item: MessageType = {
-        date: formatTime(message.date ? new Date(message.date) : new Date()),
         id: uuidv4(),
         isFirst: Boolean(message.isFirst),
         isHighlight: message.isHighlight,
@@ -25,6 +24,7 @@ export const useMessages = (chatClient: ChatClient, initialConfig: InitialConfig
         isVip: Boolean(message.userInfo?.isVip),
         replyMsg: message.isReply ? `💬 ➜ @${message.parentMessageUserName} ${message.parentMessageText}` : null,
         text: String(text || ""),
+        timestamp: formatTime(message.date ? new Date(message.date) : new Date()),
         userColor: getUserColor(initialConfig, message.userInfo?.color, user),
         userName: user || initialConfig.uu_name,
       };
@@ -43,7 +43,6 @@ export const useMessages = (chatClient: ChatClient, initialConfig: InitialConfig
     }, initialConfig.interval);
 
     return () => {
-      // Cleanup
       chatClient.removeListener(listener);
 
       if (timerRef.current !== null) {
@@ -51,10 +50,9 @@ export const useMessages = (chatClient: ChatClient, initialConfig: InitialConfig
         timerRef.current = null;
       }
 
-      // Clear buffer safely
       bufferRef.current = [];
     };
-  }, [chatClient, initialConfig]); // ✅ added dependencies
+  }, [chatClient, initialConfig]);
 
   return { messages };
 };

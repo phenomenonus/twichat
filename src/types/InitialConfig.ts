@@ -1,5 +1,7 @@
 import type { AnimationType } from "./AnimationType";
+import type { BGType } from "./BGType";
 import type { ColorNameType } from "./ColorNamesType";
+import type { ThemeType } from "./ThemeType";
 
 export type InitialConfig = {
   /**
@@ -12,6 +14,11 @@ export type InitialConfig = {
    * @requires
    */
   channel: string;
+  /**
+   * Chat background color.
+   * @default "transparent"
+   */
+  chat_bg: BGType;
   /**
    * Type of colored usernames.
    */
@@ -27,10 +34,6 @@ export type InitialConfig = {
    */
   f_size: number | null;
   /**
-   * Add dark glass effect to the chat layout
-   */
-  glass: boolean;
-  /**
    * How often updates(flush) new messages in chat.
    * @default 300
    */
@@ -40,6 +43,11 @@ export type InitialConfig = {
    * @default 50
    */
   limit: number;
+  /**
+   * Message background color.
+   * @default "transparent"
+   */
+  msg_bg: BGType;
   /**
    * If true, it shows special icons in users messages to see their meta data(e.g., subscriber, first message, etc.).
    * @default true
@@ -51,8 +59,12 @@ export type InitialConfig = {
    */
   placeholder: boolean;
   /**
+   * @default "dark"
+   */
+  theme: ThemeType;
+  /**
    * If true, it shows the time the message was received.
-   * @default true
+   * @default false
    */
   time: boolean;
   /**

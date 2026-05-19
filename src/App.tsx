@@ -10,7 +10,7 @@ type AppPropsType = {
 
 export const App: React.FC<AppPropsType> = ({ elem }) => {
   const initialConfig = readInitialConfigFromUrl();
-  initializeSettting(initialConfig, elem);
+  initializeSettting(initialConfig);
 
   if (!initialConfig.channel) return <Preview />;
 

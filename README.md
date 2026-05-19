@@ -1,6 +1,6 @@
 # Twichat
 
-![Chat](./docs/assets/png/chat.png)
+![chat_bg=glass](./docs/assets/jpg/chat_bg=glass.jpg)
 
 Display chat messages from a Twitch channel with customizable behavior and styles. It uses the [twurple](https://github.com/twurple/twurple) library to connect to the Twitch API and fetch chat data.
 
@@ -14,7 +14,7 @@ Display chat messages from a Twitch channel with customizable behavior and style
   - [Advanced example](#advanced-example)
 - [Parameters](#parameters)
 - [Special Icons](#special-icons)
-- [Animation](#animation)
+- [Preview](#preview)
 - [Development](#development)
   - [Quick start](#quick-start)
     - [Installation](#installation)
@@ -33,7 +33,7 @@ Display chat messages from a Twitch channel with customizable behavior and style
 Connect to a Twitch chat channel:
 
 ```txt
-https://phenomenonus.github.io/twichat?channel=mychannel
+https://phenomenonus.github.io/twichat?channel=mychannel&chat_bg=glass&msg_bg=glass
 ```
 
 ### Run local server
@@ -49,7 +49,7 @@ http://localhost:8000?placeholder=true
 Customize chat appearance, animation, metadata, and placeholders:
 
 ```url
-https://phenomenonus.github.io/twichat?channel=mychannel&limit=150&interval=400&du_color=00ff00&uu_name=Anonymous&f_size=20&animation=movetr&cu_name=auto&meta=true&glass=true&time=true&placeholder=true
+https://phenomenonus.github.io/twichat?channel=mychannel&f_size=20&msg_bg=solid&animation=movetl&theme=light
 ```
 
 ---
@@ -58,20 +58,22 @@ https://phenomenonus.github.io/twichat?channel=mychannel&limit=150&interval=400&
 
 Use [query parameters](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) in the [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) to configure the chat:
 
-| Parameter     | Description                                                                                                                                                                                                                                                 | Default          |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `animation`   | Message animation type:<br>• `movetl` - move message to the left<br>• `movetr` - move message to the right<br>• `fadein` - fade in message (default)<br>• `shake` - shake message on appearance<br>• `none` - disable animation                             | `fadein`         |
-| `channel`     | Your channel name. **Required**                                                                                                                                                                                                                             | `""`             |
-| `cu_name`     | Type of colored usernames:<br>• `auto` - tries Twitch colors first, otherwise custom<br>• `twitch` - use Twitch color for usernames (may not always work)<br>• `custom` - generate unique colors for each user (default)<br>• `static` - use a single color | `custom`         |
-| `du_color`    | Default user color when a user has no assigned color. Also used for `static` mode. Use a **hex code without `#`**.                                                                                                                                          | `34cf53` (green) |
-| `f_size`      | Font size in pixels. Used to scale chat content.                                                                                                                                                                                                            | `16`             |
-| `glass`       | Adds a dark glass effect to the chat layout.                                                                                                                                                                                                                | `false`          |
-| `interval`    | How often to flush new messages into the chat, in milliseconds.                                                                                                                                                                                             | `300`            |
-| `limit`       | Maximum number of messages displayed in the chat at runtime.                                                                                                                                                                                                | `50`             |
-| `meta`        | Shows or hides special icons in messages (e.g., subscriber, first message, etc.).                                                                                                                                                                           | `true`           |
-| `placeholder` | Displays a placeholder box to help position the chat. Useful for adjusting layout on screen.                                                                                                                                                                | `false`          |
-| `time`        | Shows the time when the message was received.                                                                                                                                                                                                               | `false`          |
-| `uu_name`     | Name used when a message has no author.                                                                                                                                                                                                                     | `__ufo`          |
+| Parameter     | Description                                                                                                                                                                                                                                                                                                               | Default                           |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `animation`   | Message animation type:<br>• `movetl` - move message to the left<br>• `movetr` - move message to the right<br>• `fadein` - fade in message (default)<br>• `none` - disable animation                                                                                                                                      | `fadein`                          |
+| `channel`     | Your channel name. **Required**                                                                                                                                                                                                                                                                                           | _required_                        |
+| `chat_bg`     | Chat background style:<br>• `glass` — dark glass effect<br>• `solid` — solid color background<br>• `transparent` — no background (default)                                                                                                                                                                                | `transparent`                     |
+| `cu_name`     | Type of colored usernames (ColorNameType). Examples:<br>• `auto` — prefer Twitch colors if available, otherwise custom<br>• `twitch` — use Twitch-provided username color<br>• `custom` — generate unique colors per user (default)<br>• `static` — use a single color for all users. See also `du_color` parameter below | `custom`                          |
+| `du_color`    | Default user color when a user has no assigned color. Also used for `static` mode. Provide a [hex color](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/hex-color) **without `#`** (e.g., `34cf53`).                                                                                                   | `custom` (`34cf53` commonly used) |
+| `f_size`      | Font size in pixels. Use `null` to fall back to stylesheet default; otherwise provide a number (e.g., `16`).                                                                                                                                                                                                              | `16`                              |
+| `interval`    | How often to flush new messages into the chat, in milliseconds.                                                                                                                                                                                                                                                           | `300`                             |
+| `limit`       | Maximum number of messages displayed in the chat at runtime.                                                                                                                                                                                                                                                              | `50`                              |
+| `msg_bg`      | Message background style:<br>• `glass` — glass-style message background<br>• `solid` — solid message background<br>• `transparent` — no message background (default)                                                                                                                                                      | `transparent`                     |
+| `spec`        | Show special icons in messages (e.g., subscriber, first message, etc.).                                                                                                                                                                                                                                                   | `true`                            |
+| `placeholder` | Displays a placeholder box to help position the chat. Useful for adjusting layout on screen.                                                                                                                                                                                                                              | `false`                           |
+| `theme`       | UI theme:<br>• `dark` — dark theme (default)<br>• `light` — light theme<br>• `neutral` — neutral theme                                                                                                                                                                                                                    | `dark`                            |
+| `time`        | Show the time when the message was received.                                                                                                                                                                                                                                                                              | `false`                           |
+| `uu_name`     | Name used when a message has no author.                                                                                                                                                                                                                                                                                   | `__ufo`                           |
 
 ---
 
@@ -97,27 +99,34 @@ Use [query parameters](https://developer.mozilla.org/en-US/docs/Web/API/URLSearc
 ### Preview
 
 <details>
-<summary>Settings</summary>
+<summary>Examples</summary>
 
-| animation             | preview                                                   |
-| --------------------- | --------------------------------------------------------- |
-| `glass`               | ![Glass](./docs/assets/png/chat-glass.png)                |
-| `placeholder`         | ![Placeholder](./docs/assets/png/placeholder.png)         |
-| `f_size=20`           | ![Animation none](./docs/assets/png/chat-f_size-20.png)   |
-| `time=true&spec=true` | ![Animation fadein](./docs/assets/png/chat-time-spec.png) |
+| preview                                                                                                                                                   |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `chat_bg=glass&f_size=20`<br>![chat_bg=glass&f_size=20](./docs/assets/jpg/chat_bg=glass&f_size=20.jpg)                                                    |
+| `chat_bg=glass`<br>![chat_bg=glass](./docs/assets/jpg/chat_bg=glass.jpg)                                                                                  |
+| `chat_bg=glass&msg_bg=solid&theme=light`<br>![chat_bg=glass&msg_bg=solid&theme=light](./docs/assets/jpg/chat_bg=glass&msg_bg=solid&theme=light.jpg)       |
+| `chat_bg=glass&time=true`<br>![chat_bg=glass&time=true](./docs/assets/jpg/chat_bg=glass&time=true.jpg)                                                    |
+| `chat_bg=solid`<br>![chat_bg=solid](./docs/assets/jpg/chat_bg=solid.jpg)                                                                                  |
+| `msg_bg=glass&chat_bg=glass`<br>![msg_bg=glass&chat_bg=glass](./docs/assets/jpg/msg_bg=glass&chat_bg=glass.jpg)                                           |
+| `msg_bg=glass&chat_bg=glass&theme=light`<br>![msg_bg=glass&chat_bg=glass&theme=light](./docs/assets/jpg/msg_bg=glass&chat_bg=glass&theme=light.jpg)       |
+| `msg_bg=glass&chat_bg=glass&theme=neutral`<br>![msg_bg=glass&chat_bg=glass&theme=neutral](./docs/assets/jpg/msg_bg=glass&chat_bg=glass&theme=neutral.jpg) |
+| `msg_bg=glass`<br>![msg_bg=glass](./docs/assets/jpg/msg_bg=glass.jpg)                                                                                     |
+| `msg_bg=solid&theme=light`<br>![msg_bg=solid&theme=light](./docs/assets/jpg/msg_bg=solid&theme=light.jpg)                                                 |
+| `placeholder=true`<br>![placeholder=true](./docs/assets/jpg/placeholder=true.jpg)                                                                         |
 
 </details>
 
 <details>
 <summary>See animations</summary>
 
-| animation | preview                                                     |
-| --------- | ----------------------------------------------------------- |
-| `none`    | ![Animation none](./docs/assets/gif/animation-none.gif)     |
-| `fadein`  | ![Animation fadein](./docs/assets/gif/animation-fadein.gif) |
-| `movetl`  | ![Animation movetl](./docs/assets/gif/animation-movetl.gif) |
-| `movetr`  | ![Animation movetr](./docs/assets/gif/animation-movetr.gif) |
-| `shake`   | ![Animation shake](./docs/assets/gif/animation-shake.gif)]  |
+| preview                                                                 |
+| ----------------------------------------------------------------------- |
+| `none`<br>![Animation none](./docs/assets/gif/animation-none.gif)       |
+| `fadein`<br>![Animation fadein](./docs/assets/gif/animation-fadein.gif) |
+| `movetl`<br>![Animation movetl](./docs/assets/gif/animation-movetl.gif) |
+| `movetr`<br>![Animation movetr](./docs/assets/gif/animation-movetr.gif) |
+| `shake`<br>![Animation shake](./docs/assets/gif/animation-shake.gif)    |
 
 </details>
 

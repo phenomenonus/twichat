@@ -33,7 +33,7 @@ export const Chat: React.FC<ChatPropsType> = ({ animation, chatClient, container
         {item.replyMsg !== null && <div className="reply">{item.replyMsg}</div>}
 
         <div className="meta">
-          {initialConfig.time && <span className="time">{item.date}</span>}
+          {initialConfig.time && <span className="time">{item.timestamp}</span>}
           {specs !== null && <span className="spec">[{specs}]</span>}
           <span className="author" style={{ color: item.userColor }}>
             {item.userName}
