@@ -8,17 +8,16 @@ import { useAutoScroll, useMessages } from "@/hooks";
 
 import { WelcomeMessage } from "@/ui/WelcomeMessage";
 
-import type { AnimationType, InitialConfig } from "@/types";
+import type { InitialConfig } from "@/types";
 
 type ChatPropsType = {
+  client: ChatClient;
   containerRef: React.RefObject<HTMLDivElement>;
-  chatClient: ChatClient;
   initialConfig: InitialConfig;
-  animation: AnimationType | null;
 };
 
-export const Chat: React.FC<ChatPropsType> = ({ animation, chatClient, containerRef, initialConfig }) => {
-  const { messages } = useMessages(chatClient, initialConfig);
+export const Chat: React.FC<ChatPropsType> = ({ client, containerRef, initialConfig }) => {
+  const { messages } = useMessages(client, initialConfig);
   useAutoScroll(containerRef, messages);
 
   if (messages.length === 0) {
@@ -29,7 +28,7 @@ export const Chat: React.FC<ChatPropsType> = ({ animation, chatClient, container
     const specs = initialConfig.spec ? getSpecs(item) : null;
 
     return (
-      <div className={cns("msg", animation, item.isHighlight && "highlighted")} key={item.id}>
+      <div className={cns("msg", initialConfig.animation, item.isHighlight && "highlighted")} key={item.id}>
         {item.replyMsg !== null && <div className="reply">{item.replyMsg}</div>}
 
         <div className="meta">

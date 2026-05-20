@@ -27,7 +27,7 @@ export type InitialConfig = {
    * Default color for username. It also is ised for "static" colored usernames.
    * @default "custom"
    */
-  du_color: string;
+  du_color: string | null;
   /**
    * Font size(in pixels). Helps to scale content.
    * @default 16

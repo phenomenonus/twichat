@@ -1,14 +1,14 @@
 import type React from "react";
 
 type NoConnectionPropsType = {
-  message: string | null;
+  info: string | null;
 };
 
-export const NoConnection: React.FC<NoConnectionPropsType> = ({ message }) => {
+export const NoConnection: React.FC<NoConnectionPropsType> = ({ info }) => {
   return (
     <div className="card">
-      <div>No connection</div>
-      {message !== null && <div>{message}</div>}
+      <h4>No connection</h4>
+      {info !== null && <div>{info}</div>}
     </div>
   );
 };

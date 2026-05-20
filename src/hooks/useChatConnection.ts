@@ -4,7 +4,7 @@ import { ChatClient } from "@twurple/chat";
 
 export type ConnectionStateType = {
   /**
-   * false - chat is connecting; true - chat establish connection; null - no connection events
+   * false - chat is connecting; true - chat established connection; null - disconnected manually
    */
   connected: boolean | null;
   /**
@@ -14,7 +14,7 @@ export type ConnectionStateType = {
   /**
    * Additional information about connection
    */
-  message: string | null;
+  info: string | null;
   /**
    * Error message
    */
@@ -22,30 +22,32 @@ export type ConnectionStateType = {
 };
 
 export type UseChatConnectionAwaitResult = {
-  client: ChatClient | null;
+  client: ChatClient;
 } & ConnectionStateType;
 
 export function useChatConnection(channel: string): UseChatConnectionAwaitResult {
   const [state, setState] = React.useState<ConnectionStateType>({
     connected: false,
     error: null,
+    info: null,
     joined: false,
-    message: null,
   });
 
   const client = React.useMemo(() => new ChatClient({ channels: [channel] }), [channel]);
 
   React.useEffect(() => {
     const onConnect = client.onConnect(() => {
-      setState((s) => ({ ...s, connected: true }));
+      setState((s) => ({ ...s, connected: true, error: null, info: null }));
     });
 
     const onDisconnect = client.onDisconnect((manually, reason) => {
       setState({
-        connected: null,
+        connected: manually ? null : false,
         error: reason === undefined ? null : `${reason.cause ?? reason.name}: ${reason.message}`,
+        info: manually
+          ? "Client manually disconnected"
+          : "Client automatically disconnected. Your internet connection may have been interrupted or other technical issues may have occurred. If the connection is unavailable for a long time, try restarting the app.",
         joined: false,
-        message: `${manually ? "Client manually disconnected" : "Client automatically disconnected"}. Please check your internet connection and try again.`,
       });
     });
 
@@ -54,12 +56,12 @@ export function useChatConnection(channel: string): UseChatConnectionAwaitResult
     });
 
     const onJoinFailure = client.onJoinFailure((channel, reason) => {
-      setState({
-        connected: true,
-        error: `Failed to join the ${channel} channel. [Reason: ${reason}]`,
+      setState((s) => ({
+        ...s,
+        error: `Failed to join the ${channel} channel. Reason: ${reason}`,
+        info: "Please check the channel name or other technical issues may have occurred.",
         joined: false,
-        message: "Please check the channel name or there may be a technical issue.",
-      });
+      }));
     });
 
     if (client.isConnecting === false && client.isConnected === false) {

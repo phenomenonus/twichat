@@ -6,14 +6,14 @@ import { v4 as uuidv4 } from "uuid";
 import type { InitialConfig, MessageType } from "../types";
 import { formatTime, getUserColor } from "../utils";
 
-export const useMessages = (chatClient: ChatClient, initialConfig: InitialConfig) => {
+export const useMessages = (client: ChatClient, initialConfig: InitialConfig) => {
   const [messages, setMessages] = React.useState<MessageType[]>([]);
   const bufferRef = React.useRef<MessageType[]>([]);
   const timerRef = React.useRef<number | null>(null);
 
   React.useEffect(() => {
     // Listener for incoming messages
-    const listener = chatClient.onMessage((_, user, text, message) => {
+    const listener = client.onMessage((_, user, text, message) => {
       const item: MessageType = {
         id: uuidv4(),
         isFirst: Boolean(message.isFirst),
@@ -43,7 +43,7 @@ export const useMessages = (chatClient: ChatClient, initialConfig: InitialConfig
     }, initialConfig.interval);
 
     return () => {
-      chatClient.removeListener(listener);
+      client.removeListener(listener);
 
       if (timerRef.current !== null) {
         clearInterval(timerRef.current);
@@ -52,7 +52,7 @@ export const useMessages = (chatClient: ChatClient, initialConfig: InitialConfig
 
       bufferRef.current = [];
     };
-  }, [chatClient, initialConfig]);
+  }, [client, initialConfig]);
 
   return { messages };
 };

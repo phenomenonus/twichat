@@ -2,19 +2,19 @@ import type React from "react";
 
 type ErrorMessagePropsType = {
   error: string;
-  message: string | null;
+  info: string | null;
 };
 
-export const ErrorMessage: React.FC<ErrorMessagePropsType> = ({ error, message }) => {
+export const ErrorMessage: React.FC<ErrorMessagePropsType> = ({ error, info }) => {
   return (
     <div className="card">
       <h4>Error</h4>
       <div className="error">
         <div>{error}</div>
-        {message !== null && (
+        {info !== null && (
           <>
             <br />
-            <div>{message}</div>
+            <div>{info}</div>
           </>
         )}
       </div>

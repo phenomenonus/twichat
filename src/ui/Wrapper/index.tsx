@@ -13,17 +13,15 @@ type WrapperPropsType = {
 
 export const Wrapper: React.FC<WrapperPropsType> = ({ elem, initialConfig }) => {
   const ref = React.useRef<HTMLDivElement>(elem);
-  const { client, connected, error, joined, message } = useChatConnection(initialConfig.channel);
+  const { client, connected, error, info, joined } = useChatConnection(initialConfig.channel);
 
-  if (error !== null) return <ErrorMessage error={error} message={message} />;
+  if (connected === null) return <NoConnection info={info} />;
 
-  if (connected === null) return <NoConnection message={message} />;
+  if (error !== null) return <ErrorMessage error={error} info={info} />;
 
   if (connected === false) return <Connecting />;
 
   if (joined === false) return <Joining channel={initialConfig.channel} />;
 
-  return (
-    <Chat animation={initialConfig.animation} chatClient={client!} containerRef={ref} initialConfig={initialConfig} />
-  );
+  return <Chat client={client} containerRef={ref} initialConfig={initialConfig} />;
 };

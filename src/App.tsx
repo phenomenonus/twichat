@@ -1,6 +1,6 @@
 import React from "react";
 
-import { initializeSettting, readInitialConfigFromUrl } from "@/utils";
+import { initializeSettings, readInitialConfigFromUrl } from "@/utils";
 
 import { Preview, Wrapper } from "@/ui";
 
@@ -10,7 +10,7 @@ type AppPropsType = {
 
 export const App: React.FC<AppPropsType> = ({ elem }) => {
   const initialConfig = readInitialConfigFromUrl();
-  initializeSettting(initialConfig);
+  initializeSettings(initialConfig);
 
   if (!initialConfig.channel) return <Preview />;
 
