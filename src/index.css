@@ -190,6 +190,10 @@ body {
   font-size: 0.8125rem;
 }
 
+.del {
+  opacity: 0.75;
+}
+
 .meta {
   display: inline-block;
   vertical-align: middle;

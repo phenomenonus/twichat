@@ -1,6 +1,10 @@
 export type MessageType = {
   id: string;
   /**
+   * Indicates whether the user's message was deleted (message delete event, user ban, etc.).
+   */
+  isDeleted: boolean;
+  /**
    * ⚡
    */
   isFirst: boolean;
