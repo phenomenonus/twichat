@@ -3,8 +3,9 @@ import React from "react";
 import type { ChatClient } from "@twurple/chat";
 import { v4 as uuidv4 } from "uuid";
 
-import type { InitialConfig, MessageType } from "../types";
-import { formatTime, getUserColor } from "../utils";
+import { formatTime, getUserColor } from "@/utils";
+
+import type { InitialConfig, MessageType } from "@/types";
 
 export const useMessages = (client: ChatClient, initialConfig: InitialConfig) => {
   const [messages, setMessages] = React.useState<MessageType[]>([]);

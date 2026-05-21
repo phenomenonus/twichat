@@ -1,4 +1,4 @@
-import type { AnimationType, BGType, ColorNameType, InitialConfig, ThemeType } from "../types";
+import type { AnimationType, BGType, ColorNameType, InitialConfig, ThemeType } from "@/types";
 
 export const readInitialConfigFromUrl = (): InitialConfig => {
   const qp = new URLSearchParams(window.location.search);

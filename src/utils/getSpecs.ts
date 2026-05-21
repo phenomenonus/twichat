@@ -1,4 +1,4 @@
-import type { MessageType } from "../types";
+import type { MessageType } from "@/types";
 
 const SPEC = {
   FIRST_MESSAGE: "🚀",

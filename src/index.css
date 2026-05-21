@@ -10,9 +10,9 @@
   --light-trans-bg: rgba(255, 255, 255, 0.45);
   --light-trans-color: rgb(24, 24, 24);
   /* Theme: neutral */
-  --neutral-bg: rgba(125, 125, 125);
+  --neutral-bg: rgba(155, 155, 155);
   --neutral-color: rgb(28, 28, 28);
-  --neutral-trans-bg: rgba(125, 125, 125, 0.45);
+  --neutral-trans-bg: rgba(155, 155, 155, 0.45);
   --neutral-trans-color: rgb(14, 14, 14);
 
   /* Default colors */
