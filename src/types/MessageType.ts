@@ -1,3 +1,29 @@
+export type RaidMessageType =
+  | {
+      /**
+       * Is canceled raid by user.
+       */
+      isCanceled: false;
+      /**
+       * The display name of the raider.
+       */
+      userName: string;
+      /**
+       * The number of viewers joining with the raid.
+       */
+      viewerCount: number;
+    }
+  | {
+      /**
+       * Is canceled raid by user.
+       */
+      isCanceled: true;
+      /**
+       * The display name of the raider.
+       */
+      userName: string;
+    };
+
 export type MessageType = {
   id: string;
   /**
@@ -20,6 +46,10 @@ export type MessageType = {
    * M
    */
   isMod: boolean;
+  /**
+   * Include raid message data. null - not a raid message
+   */
+  raidMsg: RaidMessageType | null;
   /**
    * ♪
    */

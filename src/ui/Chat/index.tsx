@@ -6,7 +6,7 @@ import { cns, getSpecs } from "@/utils";
 
 import { useAutoScroll, useMessages } from "@/hooks";
 
-import { WelcomeMessage } from "@/ui/WelcomeMessage";
+import { RaidMessage, WelcomeMessage } from "@/ui";
 
 import type { InitialConfig } from "@/types";
 
@@ -25,6 +25,10 @@ export const Chat: React.FC<ChatPropsType> = ({ client, containerRef, initialCon
   }
 
   return messages.map((msg) => {
+    if (msg.raidMsg !== null) {
+      return <RaidMessage key={msg.id} raidMsg={msg.raidMsg} />;
+    }
+
     const specs = initialConfig.spec ? getSpecs(msg) : null;
 
     return (

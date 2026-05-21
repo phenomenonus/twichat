@@ -182,6 +182,11 @@ body {
   background-color: rgb(49, 176, 155);
 }
 
+.raid {
+  background-color: var(--bg);
+  color: var(--color);
+}
+
 .reply {
   text-overflow: ellipsis;
   white-space: nowrap;

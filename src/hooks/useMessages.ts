@@ -12,35 +12,76 @@ export const useMessages = (client: ChatClient, initialConfig: InitialConfig) =>
   const timerRef = React.useRef<number | null>(null);
 
   React.useEffect(() => {
-    const onMessageListener = client.onMessage((_, user, text, message) => {
-      const msg: MessageType = {
-        id: message.id,
-        isDeleted: false,
-        isFirst: Boolean(message.isFirst),
-        isHighlight: message.isHighlight,
-        isLeadMod: Boolean(message.userInfo?.isLeadMod),
-        isMod: Boolean(message.userInfo?.isMod),
-        isSubscriber: Boolean(message.userInfo?.isSubscriber),
-        isVip: Boolean(message.userInfo?.isVip),
-        replyMsg: message.isReply ? `💬 ➜ @${message.parentMessageUserName} ${message.parentMessageText}` : null,
-        text: String(text || ""),
-        timestamp: formatTime(message.date ? new Date(message.date) : new Date()),
-        userColor: getUserColor(initialConfig, message.userInfo?.color, user),
-        userName: user || initialConfig.uu_name,
-      };
-      bufferRef.current.push(msg);
+    const onBanListener = client.onBan((_, userName) => {
+      setMessages((arr) => arr.map((msg) => (msg.userName === userName ? { ...msg, isDeleted: true } : msg)));
     });
 
     const onChatClearListener = client.onChatClear(() => {
       setMessages([]);
     });
 
+    const onMessageListener = client.onMessage((_, user, text, msg) => {
+      const message: MessageType = {
+        id: msg.id,
+        isDeleted: false,
+        isFirst: Boolean(msg.isFirst),
+        isHighlight: msg.isHighlight,
+        isLeadMod: Boolean(msg.userInfo?.isLeadMod),
+        isMod: Boolean(msg.userInfo?.isMod),
+        isSubscriber: Boolean(msg.userInfo?.isSubscriber),
+        isVip: Boolean(msg.userInfo?.isVip),
+        raidMsg: null,
+        replyMsg: msg.isReply ? `💬 ➜ @${msg.parentMessageUserName} ${msg.parentMessageText}` : null,
+        text: String(text || ""),
+        timestamp: formatTime(msg.date ? new Date(msg.date) : new Date()),
+        userColor: getUserColor(initialConfig, msg.userInfo?.color, user),
+        userName: user || initialConfig.uu_name,
+      };
+      bufferRef.current.push(message);
+    });
+
     const onMessageRemoveListener = client.onMessageRemove((_, msgId) => {
       setMessages((arr) => arr.map((msg) => (msg.id === msgId ? { ...msg, isDeleted: true } : msg)));
     });
 
-    const onBanListener = client.onBan((_, userName) => {
-      setMessages((arr) => arr.map((msg) => (msg.userName === userName ? { ...msg, isDeleted: true } : msg)));
+    const onRaidListener = client.onRaid((_, user, raidInfo, msg) => {
+      const message: MessageType = {
+        id: msg.id,
+        isDeleted: false,
+        isFirst: false,
+        isHighlight: false,
+        isLeadMod: Boolean(msg.userInfo?.isLeadMod),
+        isMod: Boolean(msg.userInfo?.isMod),
+        isSubscriber: Boolean(msg.userInfo?.isSubscriber),
+        isVip: Boolean(msg.userInfo?.isVip),
+        raidMsg: { isCanceled: false, userName: raidInfo.displayName, viewerCount: raidInfo.viewerCount },
+        replyMsg: null,
+        text: msg.text ?? "",
+        timestamp: formatTime(msg.date ? new Date(msg.date) : new Date()),
+        userColor: "",
+        userName: user || initialConfig.uu_name,
+      };
+      bufferRef.current.push(message);
+    });
+
+    const onRaidCancelListener = client.onRaidCancel((_, msg) => {
+      const message: MessageType = {
+        id: msg.id,
+        isDeleted: false,
+        isFirst: false,
+        isHighlight: false,
+        isLeadMod: Boolean(msg.userInfo?.isLeadMod),
+        isMod: Boolean(msg.userInfo?.isMod),
+        isSubscriber: Boolean(msg.userInfo?.isSubscriber),
+        isVip: Boolean(msg.userInfo?.isVip),
+        raidMsg: { isCanceled: true, userName: msg.userInfo.displayName },
+        replyMsg: null,
+        text: msg.text ?? "",
+        timestamp: formatTime(msg.date ? new Date(msg.date) : new Date()),
+        userColor: "",
+        userName: msg.userInfo.displayName || initialConfig.uu_name,
+      };
+      bufferRef.current.push(message);
     });
 
     // Timer to flush buffer
@@ -54,10 +95,12 @@ export const useMessages = (client: ChatClient, initialConfig: InitialConfig) =>
     }, initialConfig.interval);
 
     return () => {
-      client.removeListener(onMessageListener);
-      client.removeListener(onChatClearListener);
-      client.removeListener(onMessageRemoveListener);
       client.removeListener(onBanListener);
+      client.removeListener(onChatClearListener);
+      client.removeListener(onMessageListener);
+      client.removeListener(onMessageRemoveListener);
+      client.removeListener(onRaidListener);
+      client.removeListener(onRaidCancelListener);
 
       if (timerRef.current !== null) {
         clearInterval(timerRef.current);

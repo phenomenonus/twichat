@@ -8,6 +8,7 @@ Display chat messages from a Twitch channel with customizable behavior and style
 
 ## Table of contents
 
+- [Features](#features)
 - [Usage](#usage)
   - [Basic usage](#basic-usage)
   - [Run local server](#run-local-server)
@@ -23,6 +24,17 @@ Display chat messages from a Twitch channel with customizable behavior and style
     - [Formatting and Linting](#formatting-and-linting)
 - [Links](#links)
 - [Copyright and License](#copyright-and-license)
+
+---
+
+## Features
+
+- Chat customization through [parameters](#parameters)
+- Message posting
+- Message deletion (includes removals due to bans)
+- Chat clearing
+- Raid detection (start)
+- Raid cancellation detection
 
 ---
 
@@ -198,7 +210,6 @@ npm run lint:fix     # ESLint autofix
 
 - [development-guidelines](https://github.com/phenomenonus/development-guidelines) - summary of development conventions — a concise overview of the project's rules and practices
 - [Twurple](https://github.com/twurple/twurple) - a set of libraries that aims to cover all existing [Twitch APIs](https://dev.twitch.tv/docs/api/)
-- [uuid](https://github.com/uuidjs/uuid) - for the creation of [RFC9562](https://www.rfc-editor.org/rfc/rfc9562.html) (formerly [RFC4122](https://www.rfc-editor.org/rfc/rfc4122.html)) UUIDs
 - [Vite](https://vite.dev/) – build tool for faster development
   - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/tree/main) – vite plugin for React support
   - [vite-plugin-svgr](https://github.com/pd4d10/vite-plugin-svgr) - vite plugin to transform SVGs into React components
