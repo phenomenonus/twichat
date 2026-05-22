@@ -2,13 +2,23 @@
 
 ![chat_bg=glass](./docs/assets/jpg/chat_bg=glass.jpg)
 
-Display chat messages from a Twitch channel with customizable behavior and styles. It uses the [twurple](https://github.com/twurple/twurple) library to connect to the Twitch API and fetch chat data.
+Display chat messages from a [Twitch](https://www.twitch.tv/) channel with customizable behavior and styles. It uses the [twurple](https://github.com/twurple/twurple) library to connect to the [Twitch API](https://dev.twitch.tv/docs/api/) and fetch chat data.
+
+**Features**
+
+- Chat customization through [parameters](#parameters)
+- Message incoming
+- Message deletion (includes removals due to bans)
+- Chat clearing
+- Raid detection (start)
+- Raid cancellation detection
 
 ---
 
 ## Table of contents
 
-- [Features](#features)
+- [Integration](#integration)
+  - [Integrate the chat into OBS](#integrate-the-chat-into-obs)
 - [Usage](#usage)
   - [Basic usage](#basic-usage)
   - [Run local server](#run-local-server)
@@ -27,14 +37,14 @@ Display chat messages from a Twitch channel with customizable behavior and style
 
 ---
 
-## Features
+## Integration
 
-- Chat customization through [parameters](#parameters)
-- Message posting
-- Message deletion (includes removals due to bans)
-- Chat clearing
-- Raid detection (start)
-- Raid cancellation detection
+### Integrate the chat into [OBS](https://obsproject.com/)
+
+1. Add a new source and choose [**Browser** (Browser Source)](https://obsproject.com/kb/browser-source).
+2. Set the resolution to match your video input ([the resolution of your screen](https://en.wikipedia.org/wiki/Display_resolution)).
+3. Enter the URL: `https://phenomenonus.github.io/twichat?channel=my_channel_name` (`my_channel_name` - is [Twitch](https://www.twitch.tv/) channel name)
+4. Customize the chat using the [parameters](#parameters).
 
 ---
 
@@ -56,13 +66,7 @@ Start a local server and open:
 http://localhost:8000?placeholder=true
 ```
 
-### Advanced example
-
-Customize chat appearance, animation, metadata, and placeholders:
-
-```url
-https://phenomenonus.github.io/twichat?channel=mychannel&f_size=20&msg_bg=solid&animation=movetl&theme=light
-```
+> See also: [Parameters](#parameters) and [Preview](#preview) sections.
 
 ---
 
@@ -72,7 +76,7 @@ Use [query parameters](https://developer.mozilla.org/en-US/docs/Web/API/URLSearc
 
 | Parameter     | Description                                                                                                                                                                                                                                                                                                               | Default                           |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| `animation`   | Message animation type:<br>• `movetl` - move message to the left<br>• `movetr` - move message to the right<br>• `fadein` - fade in message (default)<br>• `shake` - shake message<br>• `none` - disable animation                                                                                                         | `fadein`                          |
+| `animation`   | Message [animation](#preview) type:<br>• `movetl` - move message to the left<br>• `movetr` - move message to the right<br>• `fadein` - fade in message (default)<br>• `shake` - shake message<br>• `none` - disable animation                                                                                             | `fadein`                          |
 | `channel`     | Your channel name. **Required**                                                                                                                                                                                                                                                                                           | _required_                        |
 | `chat_bg`     | Chat background style:<br>• `glass` — dark glass effect<br>• `solid` — solid color background<br>• `transparent` — no background (default)                                                                                                                                                                                | `transparent`                     |
 | `cu_name`     | Type of colored usernames (ColorNameType). Examples:<br>• `auto` — prefer Twitch colors if available, otherwise custom (default)<br>• `twitch` — use Twitch-provided username color<br>• `custom` — generate unique colors per user<br>• `static` — use a single color for all users. See also `du_color` parameter below | `auto`                            |
@@ -81,7 +85,7 @@ Use [query parameters](https://developer.mozilla.org/en-US/docs/Web/API/URLSearc
 | `interval`    | How often to flush new messages into the chat, in milliseconds.                                                                                                                                                                                                                                                           | `300`                             |
 | `limit`       | Maximum number of messages displayed in the chat at runtime.                                                                                                                                                                                                                                                              | `50`                              |
 | `msg_bg`      | Message background style:<br>• `glass` — glass-style message background<br>• `solid` — solid message background<br>• `transparent` — no message background (default)                                                                                                                                                      | `transparent`                     |
-| `spec`        | Show special icons in messages (e.g., subscriber, first message, etc.).                                                                                                                                                                                                                                                   | `true`                            |
+| `spec`        | Show [special icons](#special-icons) in messages (e.g., subscriber, first message, etc.).                                                                                                                                                                                                                                 | `true`                            |
 | `placeholder` | Displays a placeholder box to help position the chat. Useful for adjusting layout on screen.                                                                                                                                                                                                                              | `false`                           |
 | `theme`       | UI theme:<br>• `dark` — dark theme (default)<br>• `light` — light theme<br>• `neutral` — neutral theme                                                                                                                                                                                                                    | `dark`                            |
 | `time`        | Show the time when the message was received.                                                                                                                                                                                                                                                                              | `false`                           |
@@ -108,7 +112,7 @@ Use [query parameters](https://developer.mozilla.org/en-US/docs/Web/API/URLSearc
 
 ---
 
-### Preview
+## Preview
 
 <details>
 <summary>Examples</summary>
@@ -191,7 +195,7 @@ npm run build
 
 #### Formatting and Linting
 
-You can format and lint the project after editing:
+Format and lint the project after editing:
 
 ```sh
 npm run format:check # Prettier check
@@ -222,7 +226,6 @@ npm run lint:fix     # ESLint autofix
 - [Conventional Branch](https://conventional-branch.github.io/) - a specification for adding human and machine readable meaning to branch
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) - a specification for adding human and machine readable meaning to commit messages
 - [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) - don’t let your friends dump git logs into changelogs
-- [The FNV Non-Cryptographic Hash Algorithm](https://www.rfc-editor.org/rfc/rfc9923)
 
 ---
 
