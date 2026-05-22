@@ -22,7 +22,6 @@ Display chat messages from a [Twitch](https://www.twitch.tv/) channel with custo
 - [Usage](#usage)
   - [Basic usage](#basic-usage)
   - [Run local server](#run-local-server)
-  - [Advanced example](#advanced-example)
 - [Parameters](#parameters)
 - [Special Icons](#special-icons)
 - [Preview](#preview)
