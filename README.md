@@ -220,11 +220,6 @@ npm run lint:fix     # ESLint autofix
 - [React](https://react.dev/) - front-end framework
 - [Eslint](https://eslint.org/) - tool for fixing, finding, formatting
 - [Prettier](https://prettier.io/) - formatter
-- [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt) - is a document that defines key words used in technical specifications to indicate requirement levels
-- [Semantic Versioning](https://semver.org/)
-- [Conventional Branch](https://conventional-branch.github.io/) - a specification for adding human and machine readable meaning to branch
-- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) - a specification for adding human and machine readable meaning to commit messages
-- [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) - don’t let your friends dump git logs into changelogs
 
 ---
 
