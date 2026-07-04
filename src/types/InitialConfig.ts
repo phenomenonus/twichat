@@ -20,6 +20,11 @@ export type InitialConfig = {
    */
   chat_bg: BGType;
   /**
+   * Fades out chat after specified milliseconds. 0 - is disabled
+   * @default 0
+   */
+  chat_fade: number;
+  /**
    * Type of colored usernames.
    */
   cu_name: ColorNameType;

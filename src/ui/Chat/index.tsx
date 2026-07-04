@@ -4,7 +4,7 @@ import type { ChatClient } from "@twurple/chat";
 
 import { cns, getSpecs } from "@/utils";
 
-import { useAutoScroll, useMessages } from "@/hooks";
+import { useAutoFade, useAutoScroll, useMessages } from "@/hooks";
 
 import { RaidMessage, WelcomeMessage } from "@/ui";
 
@@ -19,6 +19,7 @@ type ChatPropsType = {
 export const Chat: React.FC<ChatPropsType> = ({ client, containerRef, initialConfig }) => {
   const { messages } = useMessages(client, initialConfig);
   useAutoScroll(containerRef, messages);
+  useAutoFade(containerRef, messages, initialConfig.chat_fade);
 
   if (messages.length === 0) {
     return <WelcomeMessage channel={initialConfig.channel} />;

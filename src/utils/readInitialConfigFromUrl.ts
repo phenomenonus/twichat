@@ -12,6 +12,7 @@ export const readInitialConfigFromUrl = (): InitialConfig => {
     animation: (qp.get("animation") as AnimationType) ?? "fadein",
     channel: qp.get("channel") || "",
     chat_bg: (qp.get("chat_bg") as BGType) ?? "transparent",
+    chat_fade: parseNum(qp.get("chat_fade")) ?? 0,
     cu_name: (qp.get("cu_name") as ColorNameType) ?? "auto",
     du_color: qp.get("du_color"),
     f_size: parseNum(qp.get("f_size")),
